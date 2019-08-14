@@ -1,0 +1,55 @@
+stages:
+  - test
+  - quality
+  - build
+  - deploy
+
+cache:
+  key: 'api-push-selecaodt'
+  paths:
+    - node_modules/
+
+test_job:
+  image: registry.es.gov.br/espm/infraestrutura/containers/node:10.15.3
+  stage: test
+  script:
+    - npm install
+    - npm run test
+    - npm run test:e2e
+  retry: 2
+
+quality_job:
+  image: registry.es.gov.br/espm/infraestrutura/containers/sonar-scanner:3.3.0.1492
+  stage: quality
+  dependencies:
+    - test_job
+  script:
+    - npm install --registry http://verdaccio.10.243.9.12.xip.io
+    - npm run test:cov
+    - sonar-scanner
+
+build_job:
+  stage: build
+  image: docker:stable
+
+  services:
+    - docker:dind
+  only:
+    - tags
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
+    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_TAG $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+
+deploy_job:
+  stage: deploy
+  image: registry.es.gov.br/espm/infraestrutura/containers/node:8.12.0
+  only:
+    - tags
+  script:
+    - npm i upgrade-rancher
+    - ./node_modules/.bin/upgrade-rancher --IMAGE $CI_REGISTRY_IMAGE:$CI_BUILD_TAG --SERVICE_ID 1s876
+  dependencies:
+    - build_job

@@ -1,6 +1,0 @@
-entity Sugestao{
-	id:number
-	orgao_origem:string
-	porcentagem:number
-	orgao_destino:string
-}
