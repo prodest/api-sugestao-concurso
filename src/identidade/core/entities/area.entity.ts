@@ -1,24 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
-import { Cargo } from './cargo.entity';
-import { Concurso } from './concurso.entity';
-
+import {Inscricao} from './inscricao.entity';
 
 export class Area extends Auditoria {
 
-  @Column({ type: "varchar", length: 250 })
+  @Column({ type: "text"})
   nome: string;
 
-  @ManyToOne(type => Area, areaSuperior => areaSuperior.id)
-  @JoinColumn({ name: "areasuperior" })
-  areasuperior: Area;
+  @OneToMany(type => Inscricao, inscricoes => inscricoes.id)
+  inscricoes: Inscricao[];
 
-  @Column({ type: "boolean" })
-  ocultacandidato: boolean;
-
-  @OneToMany(type => Cargo, cargos => cargos.id)
-  cargos: Cargo[];
-
-  @ManyToOne(type => Concurso, concurso => concurso.id)
-  concurso: Concurso;
 }

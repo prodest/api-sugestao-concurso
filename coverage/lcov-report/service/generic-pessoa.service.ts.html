@@ -88,7 +88,7 @@ import { Repository } from 'typeorm';
 import { Pessoa } from 'src/identidade/core/entities/pessoa.entity';
 &nbsp;
 @Injectable()
-export class GenericPessoaService {
+export class SugestaoBaseService {
   constructor(
     @Inject('PessoaRepositoryToken')
     private readonly pessoaRepository: Repository&lt;Pessoa&gt;,

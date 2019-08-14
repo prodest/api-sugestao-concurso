@@ -9,6 +9,8 @@ import { Inscricao } from './inscricao.entity';
 import { Documento } from './documento.entity';
 import { Habilidade } from './habilidade.entity';
 import { Titulo } from './titulo.entity';
+import { Pessoa_experiencia } from './pessoaexperiencia.entity';
+import { Pessoa_endereco } from './pessoaendereco.entity';
 
 @Entity()
 export class Pessoa extends Auditoria {
@@ -34,6 +36,12 @@ export class Pessoa extends Auditoria {
   @Column({name: 'possuideficiencia', type: "boolean" })
   possuiDeficiencia: boolean;
 
+  @OneToMany(type => Pessoa_experiencia, pessoa_experiencia => pessoa_experiencia.id)
+  pessoa_experiencia: Pessoa_experiencia[];
+
+  @OneToMany(type => Pessoa_endereco, pessoa_endereco => pessoa_endereco.id)
+  pessoa_endereco: Pessoa_endereco[];
+
   @ManyToMany(type => Deficiencia, deficiencia => deficiencia.id)
   @JoinTable({ name: "pessoa_deficiencia", 
                joinColumn: {name: "pessoaid", referencedColumnName:"id"},
@@ -54,13 +62,6 @@ export class Pessoa extends Auditoria {
                inverseJoinColumn:{ name:"estadocivilid", referencedColumnName:"id"},
   })
   estadoCivil: EstadoCivil[];
-
-  @ManyToMany(type => Endereco)
-  @JoinTable({ name: "pessoa_endereco", 
-               joinColumn: {name: "pessoaid", referencedColumnName:"id"},
-               inverseJoinColumn:{ name:"enderecoid", referencedColumnName:"id"},
-  })
-  enderecos: Endereco[];
 
   @ManyToMany(type => Contato)
   @JoinTable({ name: "pessoa_contato", 

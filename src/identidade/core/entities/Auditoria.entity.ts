@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Index
 } from 'typeorm';
 
 export class Auditoria extends BaseEntity {

@@ -50,7 +50,7 @@ export class Concurso extends Auditoria {
 */
 
   @OneToMany(type => Inscricao, inscricoes => inscricoes.id)
-  inscricoes: Inscricao;
+  inscricoes: Inscricao[];
 
   @ManyToOne(type => OrgaoConcurso, orgaoConcurso => orgaoConcurso.id)
   @JoinColumn({ name: "orgaoconcursoid" })

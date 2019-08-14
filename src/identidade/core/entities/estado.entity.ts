@@ -1,7 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
 import { Documento } from './documento.entity';
-import { Endereco } from './endereco.entity';
+import { Municipio } from './municipio.entity';
 
 @Entity()
 export class Estado extends Auditoria {
@@ -14,7 +14,7 @@ export class Estado extends Auditoria {
   @OneToMany(type => Documento, documentos => documentos.id)
   documentos: Documento[];
 
-  @OneToMany(type => Endereco, endereco => endereco.id)
-  endereco: Endereco[];
+  @OneToMany(type => Municipio, municipio => municipio.id)
+  municipio: Municipio[];
 
 }

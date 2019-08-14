@@ -88,16 +88,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Controller, Get, Param, Post, Body } from '@nestjs/common';
-import { SelecaodtService } from '../service/selecaodt/selecaodt.service';
+import { SugestaoService } from '../service/selecaodt/selecaodt.service';
 import { ApiUseTags, ApiResponse, ApiImplicitParam } from '@nestjs/swagger';
 import { PessoaDto } from '../dto/pessoa.dto';
 &nbsp;
 @ApiUseTags('selecaodt')
 @Controller('selecaodt')
-export class SelecaodtController {
+export class SugestaoController {
 &nbsp;
     constructor( 
-        private readonly selecaodtService: SelecaodtService,
+        private readonly SugestaoService: SugestaoService,
     ) {}
 &nbsp;
     //Rota que retorna o dic de candidatos, dado um array de cargos
@@ -105,7 +105,7 @@ export class SelecaodtController {
     @ApiResponse({ status: 403, description: 'Forbidden.'})
     @Post('/buscarCandidatos')
     async arrayCandidatesByOffice(@Body() body){
-        return this.selecaodtService.returnPeopleByOffice(body.cargos);
+        return this.SugestaoService.returnPeopleByOffice(body.cargos);
     }
 &nbsp;
 }

@@ -1,17 +1,20 @@
-import { Entity, Column, OneToMany, ManyToOne, JoinTable, JoinColumn, Index } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, Index} from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
-import { Cargo } from './cargo.entity';
+import { Area } from './area.entity';
 import { Pessoa } from './pessoa.entity';
 import { Concurso } from './concurso.entity';
+import { Classificacao } from './classificacao.entity';
 
 @Entity()
 export class Inscricao extends Auditoria {
   @Column({ type: "timestamp" })
   datainscricao: Date;
+
 /*
   @OneToMany(type => Cargo, cargo => cargo.id)
   cago: Cargo
 */
+
   @ManyToOne(type => Pessoa, pessoa => pessoa.id)
   @JoinColumn({ name: "pessoaid" })
   @Index("pessoaid_index")
@@ -21,5 +24,17 @@ export class Inscricao extends Auditoria {
   @JoinColumn({ name: "concursoid" })
   @Index("concrusoid_index")
   concurso: Concurso[]
+
+/*
+  @ManyToOne(type => Area, areas => areas.id)
+  @JoinColumn({ name: "areaid" })
+  @Index("areaid_index")
+  areas: Area[]
+*/
+
+  @ManyToOne(type => Classificacao, classificacoes => classificacoes.id)
+  @JoinColumn({name:"classificacaoid"})
+  @Index("classificacaoid_index")
+  classificacoes: Classificacao[];
 
 }

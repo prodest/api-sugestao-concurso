@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { SelecaodtController } from './controller/selecaodt.controller';
+import { SugestaoController } from './controller/sugestao.controller';
 import { CoreModule } from '../core/core.module';
-import { GenericPessoaService } from './service/generic-pessoa.service';
-import { SelecaodtService } from './service/selecaodt.service';
+import { SugestaoBaseService } from './service/generic-pessoa.service';
+import { SugestaoService } from './service/sugestao.service';
 import { pessoaProviders } from './service/pessoa.providers';
 import { officeProviders } from './service/habilidades.providers';
 
 @Module({
   imports: [CoreModule],
-  controllers: [SelecaodtController],
+  controllers: [SugestaoController],
   providers: [
-    GenericPessoaService,
-    SelecaodtService,
+    SugestaoBaseService,
+    SugestaoService,
     ...pessoaProviders,
     ...officeProviders,
   ],

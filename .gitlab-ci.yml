@@ -5,7 +5,7 @@ stages:
   - deploy
 
 cache:
-  key: 'api-push-selecaodt'
+  key: 'push-sugestao'
   paths:
     - node_modules/
 

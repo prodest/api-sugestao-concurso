@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GenericPessoaService } from './generic-pessoa.service';
+import { SugestaoBaseService } from './generic-pessoa.service';
 import { PessoaDto } from '../../dto/pessoa.dto';
 
 @Injectable()
-export class SelecaodtService {
-  constructor(private readonly databaService: GenericPessoaService) {}
+export class SugestaoService {
+  constructor(private readonly databaService: SugestaoBaseService) {}
 
   returnPeopleByOffice(offices: Array<string>): PessoaDto[] {
     if (offices.length == 0) {

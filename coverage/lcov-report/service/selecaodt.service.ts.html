@@ -100,12 +100,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable } from '@nestjs/common';
-import { GenericPessoaService } from './generic-pessoa.service';
+import { SugestaoBaseService } from './generic-pessoa.service';
 import { PessoaDto } from '../dto/pessoa.dto';
 &nbsp;
 @Injectable()
-export class SelecaodtService {
-  constructor(private readonly databaService: GenericPessoaService) {}
+export class SugestaoService {
+  constructor(private readonly databaService: SugestaoBaseService) {}
 &nbsp;
   async returnPeopleByOffice(offices: Array&lt;String&gt;): Promise&lt;PessoaDto[]&gt; {
     const peopleDto: PessoaDto[] = new Array&lt;PessoaDto&gt;();

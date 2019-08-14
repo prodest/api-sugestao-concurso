@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, Index } from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
-import { Estado } from './estado.entity';
+import { Municipio } from './municipio.entity';
+import { Pessoa_endereco} from './pessoaendereco.entity';
 
 @Entity()
 export class Endereco extends Auditoria {
@@ -12,9 +13,6 @@ export class Endereco extends Auditoria {
   @Index("cep_index")
   cep: string;
 
-  @Column({ type: "varchar", length: 200 })
-  cidade: string;
-
   @Column({ type: "varchar", length: 500 })
   logradouro: string;
 
@@ -24,8 +22,11 @@ export class Endereco extends Auditoria {
   @Column({ type: "int" })
   numero: number;
 
-  @ManyToOne(type => Estado, estado => estado.id)
-  @JoinColumn({name:"estadoid"})
-  @Index("estadoid_endereco_index")
-  estado: Estado;
+  @OneToMany(type => Pessoa_endereco, pessoa_endereco => pessoa_endereco.id)
+  pessoa_endereco: Pessoa_endereco[];
+
+  @ManyToOne(type => Municipio, municipio => municipio.id)
+  @JoinColumn({name:"municipioid"})
+  @Index("municipioid_endereco_index")
+  municipio: Municipio;
 }

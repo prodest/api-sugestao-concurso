@@ -1,15 +1,15 @@
 import { Repository } from 'typeorm';
-import { GenericPessoaService } from './generic-pessoa.service';
+import { SugestaoBaseService } from './generic-pessoa.service';
 import { Pessoa } from '../../core/entities/pessoa.entity';
 
 jest.mock('./generic-pessoa.service');
 
-describe('GenericPessoaService', () => {
-  let database: GenericPessoaService;
+describe('SugestaoBaseService', () => {
+  let database: SugestaoBaseService;
   let pessoa: Repository<Pessoa>;
 
   beforeEach(async () => {
-    database = new GenericPessoaService(pessoa);
+    database = new SugestaoBaseService(pessoa);
   });
 
   it('Ao chamar findByOfficeName ela retornará o numero do cpf do candidatos dado a sua habilidade', async () => {

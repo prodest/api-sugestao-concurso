@@ -2,13 +2,13 @@ import { ApiModelProperty } from '@nestjs/swagger';
 
 export class PessoaDto {
   @ApiModelProperty()
-  cargo: string;
+  orgao: string;
 
   @ApiModelProperty()
   arrayCpf: string[];
 
-  constructor(cargo: string, arrayCpf: string[]) {
-    this.cargo = cargo;
+  constructor(orgao: string, arrayCpf: string[]) {
+    this.orgao = orgao;
     this.arrayCpf = arrayCpf;
   }
 }

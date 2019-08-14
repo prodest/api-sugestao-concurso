@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class GenericPessoaService {
+export class SugestaoBaseService {
   findByOfficeName(cargo: string): Array<{ numerocpf: string }> {
     if (cargo == 'Médico') {
       let a: Array<{ numerocpf: string }> = [

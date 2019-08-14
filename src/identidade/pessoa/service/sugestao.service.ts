@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GenericPessoaService } from './generic-pessoa.service';
+import { SugestaoBaseService } from './generic-pessoa.service';
 import { PessoaDto } from '../dto/pessoa.dto';
 
 @Injectable()
-export class SelecaodtService {
-  constructor(private readonly databaService: GenericPessoaService) {}
+export class SugestaoService {
+  constructor(private readonly databaService: SugestaoBaseService) {}
 
   async returnPeopleByOffice(offices: Array<string>): Promise<PessoaDto[]> {
     const peopleDto: PessoaDto[] = new Array<PessoaDto>();
@@ -24,5 +24,9 @@ export class SelecaodtService {
       arrayCPF.push(people[i].numerocpf);
     }
     return arrayCPF;
+  }
+
+  async retornaOrgaosSimilares(orgao: string) {
+    return await this.databaService.buscaOrgaos(orgao);
   }
 }

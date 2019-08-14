@@ -6,6 +6,6 @@ export const officeProviders = [
     provide: 'OfficeRepositoryToken',
     useFactory: (connection: Connection) =>
       connection.getRepository(Habilidade),
-    inject: ['DbConnectionToken'],
+    inject: ['DbConnectionToken', 'DbConnectionSugestaoToken'],
   },
 ];

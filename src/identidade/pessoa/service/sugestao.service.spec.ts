@@ -1,19 +1,19 @@
 import { Repository } from 'typeorm';
 import { Pessoa } from '../../core/entities/pessoa.entity';
-import { SelecaodtService } from './selecaodt.service';
+import { SugestaoService } from './sugestao.service';
 import { PessoaDto } from '../dto/pessoa.dto';
-import { GenericPessoaService } from './generic-pessoa.service';
+import { SugestaoBaseService } from './generic-pessoa.service';
 
 jest.mock('../service/generic-pessoa.service');
 
-describe('SelecaodtService', () => {
-  let database: GenericPessoaService;
+describe('SugestaoService', () => {
+  let database: SugestaoBaseService;
   let pessoa: Repository<Pessoa>;
-  let service: SelecaodtService;
+  let service: SugestaoService;
 
   beforeEach(() => {
-    database = new GenericPessoaService(pessoa);
-    service = new SelecaodtService(database);
+    database = new SugestaoBaseService(pessoa);
+    service = new SugestaoService(database);
   });
 
   it('should be defined', () => {

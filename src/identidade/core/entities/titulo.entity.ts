@@ -1,10 +1,11 @@
-import { Entity, Column} from 'typeorm';
+import { Entity, Column, Index} from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
 
 @Entity()
 export class Titulo extends Auditoria {
 
-  @Column({ type: "varchar", length: 250 })
+  @Column({ type: "text"})
+  @Index("TituloDescricao_index")
   descricao: string;
 
 }

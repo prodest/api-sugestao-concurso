@@ -1,5 +1,5 @@
 {
-  "name": "api-push-selecaodt",
+  "name": "push-sugestao",
   "version": "0.0.7",
   "description": "Api que retorna os candidatos específicos a serem notificados",
   "author": "Helen França",
