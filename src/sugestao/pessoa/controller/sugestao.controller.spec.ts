@@ -1,6 +1,6 @@
 import { SugestaoController } from './sugestao.controller';
 import { Repository } from 'typeorm';
-import { Pessoa } from '../../core/entities/pessoa.entity';
+import { Pessoa } from '../../identidade/entities/pessoa.entity';
 import { SugestaoService } from '../service/sugestao.service';
 import { SugestaoBaseService } from '../service/generic-pessoa.service';
 import { PessoaDto } from '../dto/pessoa.dto';

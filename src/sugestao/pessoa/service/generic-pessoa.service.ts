@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Pessoa } from '../../core/entities/pessoa.entity';
-import { Sugestao } from '../../core/entities_sugestao/sugestao.entity';
+import { Pessoa } from '../../identidade/entities/pessoa.entity';
 
 @Injectable()
 export class SugestaoBaseService {

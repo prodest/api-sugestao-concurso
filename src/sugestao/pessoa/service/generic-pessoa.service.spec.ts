@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { SugestaoBaseService } from './generic-pessoa.service';
-import { Pessoa } from '../../core/entities/pessoa.entity';
+import { Pessoa } from '../../identidade/entities/pessoa.entity';
 
 jest.mock('./generic-pessoa.service');
 

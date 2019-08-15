@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { Pessoa } from '../../core/entities/pessoa.entity';
+import { Pessoa } from '../../identidade/entities/pessoa.entity';
 
 export const pessoaProviders = [
   {
