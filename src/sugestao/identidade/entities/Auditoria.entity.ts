@@ -3,16 +3,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Index
+  Index,
 } from 'typeorm';
 
 export class Auditoria extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "int" })
+  @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
-  @CreateDateColumn({ type: "timestamp", nullable: false })
+  @CreateDateColumn({ type: 'datetime', nullable: false })
   dataregistro: Date;
 
-  @UpdateDateColumn({ type: "timestamp", nullable: false })
+  @UpdateDateColumn({ type: 'datetime', nullable: false })
   atualizadoem: Date;
 }

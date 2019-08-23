@@ -3,6 +3,7 @@ import { SugestaoOrgaoService } from './sugestao_orgao.service';
 
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RespostaSugestaoDados } from '../../identidade/resposta_sugestao/resposta_sugestao_dados';
+import { RetornoSugestaoOrgaoDto } from './../../identidade/resposta_sugestao/dto/retorno_sugestao_orgao.dto';
 
 @ApiUseTags('sugestao')
 @Controller('sugestao')
@@ -31,12 +32,12 @@ export class SugestaoOrgaoController {
 
   @Get(':orgao')
   async find(@Res() res, @Param() params) {
-    let resposta_consulta;
+    let resposta_consulta: Array<RetornoSugestaoOrgaoDto>;
     try {
       let result = await this.sugestaoOrgaoService.find(params.orgao);
 
       if (result != null) {
-        resposta_consulta = this.respostaSugestaoDados.retornaArraySugestao(
+        resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
         res.status(HttpStatus.OK).send(resposta_consulta);

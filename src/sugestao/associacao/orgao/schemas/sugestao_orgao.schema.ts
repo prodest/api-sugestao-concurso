@@ -10,7 +10,7 @@ export const sugestaoOrgaoSchema = new mongoose.Schema({
     required: true,
   },
   orgao_origem: {
-    type: String,
+    type: Array,
     required: true,
   },
 });

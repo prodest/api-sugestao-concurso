@@ -1,5 +1,15 @@
 export class RetornoSugestaoOrgaoDto {
-  readonly porcentagem: number;
-  readonly orgao_origem: string;
-  readonly cpf_candidatos: Array<string>;
+  porcentagem: number;
+  orgao_origem: string;
+  cpf_candidatos: Array<string>;
+
+  constructor(
+    porcentagem: number,
+    orgao_origem: string,
+    cpf_candidatos: Array<string>,
+  ) {
+    this.porcentagem = porcentagem;
+    this.orgao_origem = orgao_origem;
+    this.cpf_candidatos = cpf_candidatos;
+  }
 }
