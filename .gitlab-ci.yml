@@ -6,6 +6,10 @@ cache:
   key: 'push-sugestao'
   paths:
     - node_modules/
+# https://gitlab.com/gitlab-org/gitlab-ce/issues/64959
+# hot fix: Cannot connect to the Docker daemon at tcp://docker:2375. Is the docker daemon running?
+variables:
+  DOCKER_TLS_CERTDIR: ""
 
 build_job:
   stage: build
