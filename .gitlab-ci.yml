@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - test
 
 cache:
   key: 'push-sugestao'
@@ -10,6 +11,13 @@ cache:
 # hot fix: Cannot connect to the Docker daemon at tcp://docker:2375. Is the docker daemon running?
 variables:
   DOCKER_TLS_CERTDIR: ""
+  
+test_job:
+  image: registry.es.gov.br/espm/infraestrutura/containers/node:10-slim
+  stage: test
+  script:
+     - npm install
+
 
 build_job:
   stage: build
