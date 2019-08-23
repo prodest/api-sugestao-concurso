@@ -16,22 +16,27 @@ export class RespostaSugestaoDados {
       RetornoSugestaoOrgaoDto
     >();
 
-    let porcentagem = orgaos[0].porcentagem;
+    let dic: {} = [];
+
     for (let j = 0; j < orgaos.length; j++) {
       for (let i = 0; i < orgaos[j].orgao_origem.length; i++) {
-        retorno = await this.returnArrayCPF(
-          await this.respostaSugestaoService.findAllCandidates(
-            orgaos[i].orgao_origem,
-          ),
-        );
-        const personDto = new RetornoSugestaoOrgaoDto(
-          porcentagem,
-          orgaos[i].orgao_origem,
-          retorno,
-        );
-        resposta.push(personDto);
+        dic[orgaos[j].orgao_origem[i]] = orgaos[i].porcentagem;
       }
     }
+
+    for (const elem in dic) {
+      retorno = await this.returnArrayCPF(
+        await this.respostaSugestaoService.findAllCandidates(elem),
+      );
+
+      const arrayResposta = new RetornoSugestaoOrgaoDto(
+        dic[elem],
+        elem,
+        retorno,
+      );
+      resposta.push(arrayResposta);
+    }
+
     return resposta;
   }
 
