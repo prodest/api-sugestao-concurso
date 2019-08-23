@@ -1,7 +1,8 @@
 stages:
+  - test
   - build
   - deploy
-  - test
+
 
 cache:
   key: 'push-sugestao'
@@ -27,6 +28,8 @@ build_job:
     - docker:dind
   only:
     - tags
+  dependencies:
+    - test_job
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
