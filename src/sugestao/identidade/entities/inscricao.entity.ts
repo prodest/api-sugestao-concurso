@@ -7,7 +7,7 @@ import { Classificacao } from './classificacao.entity';
 
 @Entity()
 export class Inscricao extends Auditoria {
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   datainscricao: Date;
 
   /*

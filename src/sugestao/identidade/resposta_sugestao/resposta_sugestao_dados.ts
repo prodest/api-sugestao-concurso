@@ -17,6 +17,7 @@ export class RespostaSugestaoDados {
     >();
 
     let dic: {} = [];
+    let mensagem: string;
 
     for (let j = 0; j < orgaos.length; j++) {
       for (let i = 0; i < orgaos[j].orgao_origem.length; i++) {
@@ -28,11 +29,16 @@ export class RespostaSugestaoDados {
       retorno = await this.returnArrayCPF(
         await this.respostaSugestaoService.findAllCandidates(elem),
       );
-
+      mensagem =
+        'Oi, tenho ' +
+        dic[elem].toFixed(2) +
+        '% de certeza que você vai se interessar pelo concurso ' +
+        elem.toUpperCase() +
+        '.';
       const arrayResposta = new RetornoSugestaoOrgaoDto(
-        dic[elem],
-        elem,
+        mensagem,
         retorno,
+        'ESPM NEWS',
       );
       resposta.push(arrayResposta);
     }

@@ -15,7 +15,7 @@ export class Pessoa_endereco extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   data: Date;
 
   @ManyToOne(type => Pessoa, pessoa => pessoa.id)

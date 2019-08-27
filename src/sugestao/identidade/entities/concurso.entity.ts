@@ -18,7 +18,7 @@ export class Concurso extends Auditoria {
   @Column({ type: 'varchar', length: 1000, nullable: true })
   nome: string;
 
-  @Column({ type: 'varchar', length: 3000, nullable: true })
+  @Column({ type: 'varchar', length: 3000 })
   descricao: string;
 
   @Column({ type: 'int' })

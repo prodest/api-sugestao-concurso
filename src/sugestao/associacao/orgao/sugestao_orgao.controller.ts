@@ -40,6 +40,7 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
+
         res.status(HttpStatus.OK).send(resposta_consulta);
       } else {
         res

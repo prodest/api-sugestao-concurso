@@ -10,9 +10,9 @@ export class Auditoria extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
-  @CreateDateColumn({ type: 'datetime', nullable: false })
+  @CreateDateColumn({ type: 'timestamp', nullable: false })
   dataregistro: Date;
 
-  @UpdateDateColumn({ type: 'datetime', nullable: false })
+  @UpdateDateColumn({ type: 'timestamp', nullable: false })
   atualizadoem: Date;
 }
