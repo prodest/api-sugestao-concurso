@@ -4,6 +4,7 @@ import { SugestaoOrgaoService } from './sugestao_orgao.service';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RespostaSugestaoDados } from '../../identidade/resposta_sugestao/resposta_sugestao_dados';
 import { RetornoSugestaoOrgaoDto } from './../../identidade/resposta_sugestao/dto/retorno_sugestao_orgao.dto';
+import { get } from 'http';
 
 @ApiUseTags('sugestao')
 @Controller('sugestao')
@@ -19,15 +20,25 @@ export class SugestaoOrgaoController {
   @ApiResponse({ status: 503, description: 'Server error.' })
   async findAll(@Res() res) {
     try {
-      let result = await this.sugestaoOrgaoService.findAll();
-      if (result != null) {
-        res.status(HttpStatus.OK).send(result);
-      } else {
-        res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
-      }
+      // let result = await this.sugestaoOrgaoService.findAll();
+      // if (result != null) {
+      res.status(HttpStatus.OK).send('Estou vivo');
+      // } else {
+      //   res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
+      // }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).json(err.message);
     }
+    // try {
+    //   let result = await this.sugestaoOrgaoService.findAll();
+    //   if (result != null) {
+    //     res.status(HttpStatus.OK).send(result);
+    //   } else {
+    //     res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
+    //   }
+    // } catch (err) {
+    //   res.status(HttpStatus.BAD_GATEWAY).json(err.message);
+    // }
   }
 
   @Get(':orgao')
