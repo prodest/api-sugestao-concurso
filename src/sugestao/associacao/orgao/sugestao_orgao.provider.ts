@@ -5,7 +5,7 @@ export const sugestaoOrgaoProviders = [
   {
     provide: 'sugestaoOrgaoConnectionToken',
     useFactory: (connection: Connection) =>
-      connection.model('SugestaoOrgao', sugestaoOrgaoSchema),
+      connection.model('sugestaoorgaos', sugestaoOrgaoSchema),
     inject: ['MongoConnectionToken'],
   },
 ];

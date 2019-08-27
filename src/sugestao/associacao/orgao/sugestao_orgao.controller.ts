@@ -20,25 +20,25 @@ export class SugestaoOrgaoController {
   @ApiResponse({ status: 503, description: 'Server error.' })
   async findAll(@Res() res) {
     try {
-      // let result = await this.sugestaoOrgaoService.findAll();
-      // if (result != null) {
-      res.status(HttpStatus.OK).send('Estou vivo');
-      // } else {
-      //   res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
-      // }
+      let result = await this.sugestaoOrgaoService.findAll();
+      if (result != null) {
+        res.status(HttpStatus.OK).send(result);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
+      }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).json(err.message);
     }
-    // try {
-    //   let result = await this.sugestaoOrgaoService.findAll();
-    //   if (result != null) {
-    //     res.status(HttpStatus.OK).send(result);
-    //   } else {
-    //     res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
-    //   }
-    // } catch (err) {
-    //   res.status(HttpStatus.BAD_GATEWAY).json(err.message);
-    // }
+    try {
+      let result = await this.sugestaoOrgaoService.findAll();
+      if (result != null) {
+        res.status(HttpStatus.OK).send(result);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).json(err.message);
+    }
   }
 
   @Get(':orgao')
