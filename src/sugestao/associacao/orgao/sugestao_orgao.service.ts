@@ -23,6 +23,7 @@ export class SugestaoOrgaoService {
 
   async findAll(): Promise<SugestaoOrgao[]> {
     try {
+      console.log(await this.sugestaoOrgaoModel.find().exec());
       return await this.sugestaoOrgaoModel.find().exec();
     } catch (err) {
       throw new Error(err.message);
@@ -31,6 +32,9 @@ export class SugestaoOrgaoService {
 
   async find(orgao: string): Promise<SugestaoOrgao[]> {
     try {
+      console.log(
+        await this.sugestaoOrgaoModel.find({ orgao_destino: orgao }).exec(),
+      );
       return await this.sugestaoOrgaoModel
         .find({ orgao_destino: orgao })
         .exec();
