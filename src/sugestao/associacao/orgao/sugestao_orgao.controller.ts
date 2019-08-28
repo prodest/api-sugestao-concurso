@@ -29,16 +29,6 @@ export class SugestaoOrgaoController {
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).json(err.message);
     }
-    try {
-      let result = await this.sugestaoOrgaoService.findAll();
-      if (result != null) {
-        res.status(HttpStatus.OK).send(result);
-      } else {
-        res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
-      }
-    } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).json(err.message);
-    }
   }
 
   @Get(':orgao')
@@ -47,11 +37,12 @@ export class SugestaoOrgaoController {
     try {
       let result = await this.sugestaoOrgaoService.find(params.orgao);
 
-      if (result != null) {
+      if (result.length == 0) {
+        res.status(HttpStatus.OK).send('Orgão sem correlação');
+      } else if (result != null) {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
-
         res.status(HttpStatus.OK).send(resposta_consulta);
       } else {
         res
