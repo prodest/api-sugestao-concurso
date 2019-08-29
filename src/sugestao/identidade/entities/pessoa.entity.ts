@@ -43,7 +43,7 @@ export class Pessoa extends Auditoria {
   @Column({ type: 'varchar', length: 10 })
   sexo: string;
 
-  @Column({ name: 'possuideficiencia', type: 'bit' })
+  @Column({ name: 'possuideficiencia' })
   possuiDeficiencia: boolean;
 
   @OneToMany(

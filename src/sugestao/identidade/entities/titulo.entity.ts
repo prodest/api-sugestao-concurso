@@ -3,7 +3,7 @@ import { Auditoria } from './Auditoria.entity';
 
 @Entity()
 export class Titulo extends Auditoria {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable:true })
   @Index('TituloDescricao_index')
   descricao: string;
 }

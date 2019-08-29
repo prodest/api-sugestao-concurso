@@ -4,7 +4,7 @@ import { Pessoa_experiencia } from './pessoaexperiencia.entity';
 
 @Entity()
 export class Experiencia extends Auditoria {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable:true })
   nome: string;
 
   @OneToMany(

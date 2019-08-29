@@ -18,7 +18,7 @@ export class Concurso extends Auditoria {
   @Column({ type: 'varchar', length: 1000, nullable: true })
   nome: string;
 
-  @Column({ type: 'varchar', length: 3000 })
+  @Column({ type: 'varchar', length: 3000, nullable:true })
   descricao: string;
 
   @Column({ type: 'int' })
@@ -42,10 +42,10 @@ export class Concurso extends Auditoria {
   @Column({ type: 'date', nullable: true })
   datafimvigencia: Date;
 
-  @Column({ type: 'bit' })
+  @Column({ nullable:true })
   liberarvisualizacao: boolean;
 
-  @Column({ type: 'bit' })
+  @Column({ nullable: true })
   etapaprova: boolean;
 
   @Column({ type: 'int' })

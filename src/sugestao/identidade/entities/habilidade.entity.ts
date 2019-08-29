@@ -13,7 +13,7 @@ import { Categoria } from './categoria.entity';
 
 @Entity()
 export class Habilidade extends Auditoria {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable:true })
   @Index('habilidadedescricao_index')
   descricao: string;
 

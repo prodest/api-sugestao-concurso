@@ -13,7 +13,7 @@ import { Inscricao_municipio } from './inscricaomunicipio.entity';
 
 @Entity()
 export class Municipio extends Auditoria {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable:true })
   nome: string;
 
   @ManyToOne(type => Estado, estado => estado.id)

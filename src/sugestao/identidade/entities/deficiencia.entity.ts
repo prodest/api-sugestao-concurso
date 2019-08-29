@@ -5,7 +5,7 @@ import { Pessoa } from './pessoa.entity';
 @Entity()
 export class Deficiencia extends Auditoria {
 
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", nullable:true })
   @Index("descricao_index")
   descricao: string;
 

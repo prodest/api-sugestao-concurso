@@ -6,7 +6,7 @@ import { Inscricao } from './inscricao.entity';
 
 export class Cargo extends Auditoria {
 
-  @Column({ type: "varchar", length: 250 })
+  @Column({ type: "varchar", length: 250, nullable:true })
   nome: string;
 
   @ManyToOne(type => Area, area => area.id)

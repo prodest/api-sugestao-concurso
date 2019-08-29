@@ -3,7 +3,7 @@ import { Auditoria } from './Auditoria.entity';
 import { Inscricao } from './inscricao.entity';
 
 export class Area extends Auditoria {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable:true })
   nome: string;
 
   @OneToMany(type => Inscricao, inscricoes => inscricoes.id)
