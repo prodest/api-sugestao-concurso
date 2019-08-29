@@ -7,7 +7,6 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle('Api - Push Sugestão')
-    //.setDescription('Api que retorna possiveis candidatos de um concurso')
     .setVersion('1.0')
     .addTag('push_sugestao')
     .build();

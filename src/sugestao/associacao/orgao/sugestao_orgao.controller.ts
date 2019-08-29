@@ -4,7 +4,6 @@ import { SugestaoOrgaoService } from './sugestao_orgao.service';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RespostaSugestaoDados } from '../../identidade/resposta_sugestao/resposta_sugestao_dados';
 import { RetornoSugestaoOrgaoDto } from './../../identidade/resposta_sugestao/dto/retorno_sugestao_orgao.dto';
-import { get } from 'http';
 
 @ApiUseTags('sugestao')
 @Controller('sugestao')
