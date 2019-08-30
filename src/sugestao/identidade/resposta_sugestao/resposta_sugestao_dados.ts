@@ -11,7 +11,7 @@ export class RespostaSugestaoDados {
   async retornaArraySugestao(
     orgaos: Array<any>,
   ): Promise<RetornoSugestaoOrgaoDto[]> {
-    let retorno: any;
+    let retorno: string[] = new Array<string>();
     let resposta: RetornoSugestaoOrgaoDto[] = new Array<
       RetornoSugestaoOrgaoDto
     >();
@@ -19,6 +19,7 @@ export class RespostaSugestaoDados {
     let dic: {} = [];
     let mensagem: string;
     let orgao_destino: string = orgaos[0].orgao_destino;
+    let array: string[] = new Array<string>();
 
     for (let j = 0; j < orgaos.length; j++) {
       for (let i = 0; i < orgaos[j].orgao_origem.length; i++) {
@@ -30,22 +31,24 @@ export class RespostaSugestaoDados {
       retorno = await this.returnArrayCPF(
         await this.respostaSugestaoService.findAllCandidates(elem),
       );
-
-      mensagem =
-        'Oi, tenho ' +
-        dic[elem].toFixed(2) +
-        '% de certeza que você vai se interessar pelo processo seletivo ' +
-        orgao_destino.toUpperCase() +
-        '.';
-
-      const arrayResposta = new RetornoSugestaoOrgaoDto(
-        mensagem,
-        retorno,
-        'ESPM NEWS',
-      );
-
-      resposta.push(arrayResposta);
+      array = array.concat(retorno);
     }
+    let novaArr = array.filter((este, i) => array.indexOf(este) === i);
+
+    mensagem =
+      'Oi, tenho ' +
+      orgaos[orgaos.length - 1].porcentagem.toFixed(2) +
+      '% de certeza que você vai se interessar pelo processo seletivo ' +
+      orgao_destino.toUpperCase() +
+      '.';
+
+    const arrayResposta = new RetornoSugestaoOrgaoDto(
+      mensagem,
+      novaArr,
+      'ESPM NEWS',
+    );
+
+    resposta.push(arrayResposta);
 
     return resposta;
   }
