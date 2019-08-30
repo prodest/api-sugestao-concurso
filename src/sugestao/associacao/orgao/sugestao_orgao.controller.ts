@@ -68,7 +68,7 @@ export class SugestaoOrgaoController {
     let message = { mensagem: 'ok' };
 
     res.status(HttpStatus.OK).send(message);
-    let resposta_consulta: Array<RetornoSugestaoOrgaoDto> = [];
+    let resposta_consulta: RetornoSugestaoOrgaoDto;
     try {
       let result = await this.sugestaoOrgaoService.find(body.orgao);
       if (result != null) {
@@ -82,22 +82,40 @@ export class SugestaoOrgaoController {
       console.log(e);
     }
     try {
-      let fake = {
-        users: [123, 456],
-        title: 'string',
-        message: 'string',
-      };
-      // let resposta: any = await this.sender.envia_dados(
-      //   process.env.URL_PUSH || 'http://10.32.32.60:3000/push',
-      //   resposta_consulta,
-      // );
-      // console.log('Response push notification: ', resposta);
+      /*let resposta: any = await this.sender.envia_dados(
+        process.env.URL_PUSH || 'http://10.32.32.60:3000/push',
+        resposta_consulta,)}*/
+      this.fila(resposta_consulta);
+
       // writeFile('./log.json', JSON.stringify(resposta), error => {
       //   if (error) console.error(error);
       //   else console.log('file created successfully!');
       // });
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async fila(dado: RetornoSugestaoOrgaoDto) {
+    const base = 1000;
+    let inicio = 0;
+    let fim = base;
+    let tamanho = dado.cpf_candidatos.length;
+    let lista_cpf;
+    while (fim <= tamanho) {
+      inicio = fim;
+      fim + base < tamanho ? (fim += base) : (fim += tamanho);
+      lista_cpf = dado.cpf_candidatos.slice(inicio, fim);
+      let push_Mensage = {
+        users: lista_cpf,
+        title: dado.titulo,
+        message: dado.mensagem,
+      };
+      let resposta: any = await await await await await await await await this.sender.envia_dados(
+        process.env.URL_PUSH || 'http://httpbin.org/post',
+        push_Mensage,
+      );
+      console.log('Response push notification: ', resposta);
     }
   }
 }
