@@ -41,7 +41,7 @@ export class SugestaoOrgaoController {
 
   @Get(':orgao')
   async find(@Res() res, @Param() params) {
-    let resposta_consulta: Array<RetornoSugestaoOrgaoDto>;
+    let resposta_consulta: RetornoSugestaoOrgaoDto;
     try {
       let result = await this.sugestaoOrgaoService.find(params.orgao);
 
@@ -66,11 +66,14 @@ export class SugestaoOrgaoController {
   @Post()
   async trigger(@Body() body, @Res() res) {
     let message = { mensagem: 'ok' };
-
     res.status(HttpStatus.OK).send(message);
     let resposta_consulta: RetornoSugestaoOrgaoDto;
     try {
       let result = await this.sugestaoOrgaoService.find(body.orgao);
+
+      if (result.length == 0) {
+        throw new Error('Nenhum orgão com este nome foi encontrado');
+      }
       if (result != null) {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
@@ -102,20 +105,27 @@ export class SugestaoOrgaoController {
     let fim = base;
     let tamanho = dado.cpf_candidatos.length;
     let lista_cpf;
-    while (fim <= tamanho) {
-      inicio = fim;
-      fim + base < tamanho ? (fim += base) : (fim += tamanho);
+    while (inicio != fim) {
       lista_cpf = dado.cpf_candidatos.slice(inicio, fim);
       let push_Mensage = {
         users: lista_cpf,
         title: dado.titulo,
         message: dado.mensagem,
       };
-      let resposta: any = await await await await await await await await this.sender.envia_dados(
-        process.env.URL_PUSH || 'http://httpbin.org/post',
-        push_Mensage,
-      );
-      console.log('Response push notification: ', resposta);
+      try {
+        let resposta: any = await this.sender.envia_dados(
+          process.env.URL_PUSH || 'http://10.32.32.60:3000/push/validate',
+          push_Mensage,
+        );
+        console.log('estado', `de ${inicio} a ${fim} total ${tamanho}`);
+        console.log('Response push notification: ', resposta);
+      } catch (e) {
+        console.log('erro ao enviar dados ' + e);
+        throw new Error('abortado!');
+      }
+
+      inicio = fim;
+      fim + base < tamanho ? (fim += base) : (fim = tamanho);
     }
   }
 }
