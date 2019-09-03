@@ -12,6 +12,7 @@ import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RespostaSugestaoDados } from '../../identidade/resposta_sugestao/resposta_sugestao_dados';
 import { RetornoSugestaoOrgaoDto } from './../../identidade/resposta_sugestao/dto/retorno_sugestao_orgao.dto';
 import { sender } from './sender.service';
+import { PublicaFila } from './publica.service';
 //import { writeFile } from 'fs';
 @ApiUseTags('sugestao')
 @Controller('sugestao')
@@ -20,6 +21,7 @@ export class SugestaoOrgaoController {
     private readonly sender: sender,
     private readonly sugestaoOrgaoService: SugestaoOrgaoService,
     private readonly respostaSugestaoDados: RespostaSugestaoDados,
+    private readonly publicaFila: PublicaFila,
   ) {}
 
   @Get()
@@ -84,19 +86,21 @@ export class SugestaoOrgaoController {
     } catch (e) {
       console.log(e);
     }
-    try {
-      /*let resposta: any = await this.sender.envia_dados(
-        process.env.URL_PUSH || 'http://10.32.32.60:3000/push',
-        resposta_consulta,)}*/
-      this.fila(resposta_consulta);
-
-      // writeFile('./log.json', JSON.stringify(resposta), error => {
-      //   if (error) console.error(error);
-      //   else console.log('file created successfully!');
-      // });
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    // this.publicaFila.publica(
+    //   'amqp://fpgktngg:6-Sq5YfaHEXjydofFJ86gp1mogR282Qz@barnacle.rmq.cloudamqp.com/fpgktngg',
+    // );
+    //   /*let resposta: any = await this.sender.envia_dados(
+    //     process.env.URL_PUSH || 'http://10.32.32.60:3000/push',
+    //     resposta_consulta,)}*/
+    //   this.fila(resposta_consulta);
+    //   // writeFile('./log.json', JSON.stringify(resposta), error => {
+    //   //   if (error) console.error(error);
+    //   //   else console.log('file created successfully!');
+    //   // });
+    // } catch (e) {
+    //   console.log(e);
+    // }
   }
 
   async fila(dado: RetornoSugestaoOrgaoDto) {
