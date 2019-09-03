@@ -11,7 +11,6 @@ import { Auditoria } from './Auditoria.entity';
 import { Titulo } from './titulo.entity';
 import { Categoria } from './categoria.entity';
 
-@Entity()
 export class Habilidade extends Auditoria {
   @Column({ type: 'varchar' })
   @Index('habilidadedescricao_index')

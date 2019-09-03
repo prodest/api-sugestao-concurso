@@ -11,7 +11,6 @@ import { Auditoria } from './Auditoria.entity';
 import { Estado } from './estado.entity';
 import { Inscricao_municipio } from './inscricaomunicipio.entity';
 
-@Entity()
 export class Municipio extends Auditoria {
   @Column({ type: 'varchar' })
   nome: string;
