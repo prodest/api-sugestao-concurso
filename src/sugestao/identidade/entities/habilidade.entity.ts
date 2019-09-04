@@ -10,10 +10,9 @@ import {
 import { Auditoria } from './Auditoria.entity';
 import { Titulo } from './titulo.entity';
 import { Categoria } from './categoria.entity';
-
 @Entity()
 export class Habilidade extends Auditoria {
-  @Column({ type: 'varchar', nullable:true })
+  @Column({ type: 'varchar', nullable: true })
   @Index('habilidadedescricao_index')
   descricao: string;
 

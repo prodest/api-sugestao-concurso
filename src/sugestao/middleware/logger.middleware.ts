@@ -17,7 +17,7 @@ export class LoggerMiddleware implements NestMiddleware {
     return async (req, res, next) => {
       const user = Auth(req);
 
-      let password = new Hash();
+      const password = new Hash();
       const senhaHash = await password.password();
       const LoginUser = await password.user();
       const match = await bcrypt.compare(user.pass, senhaHash);

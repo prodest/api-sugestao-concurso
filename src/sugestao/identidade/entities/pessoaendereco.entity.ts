@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 import { Endereco } from './endereco.entity';
-
 @Entity()
 export class Pessoa_endereco extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int' })

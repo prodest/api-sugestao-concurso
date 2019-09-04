@@ -10,11 +10,9 @@ export class RespostaSugestaoDados {
 
   async retornaArraySugestao(
     orgaos: Array<any>,
-  ): Promise<RetornoSugestaoOrgaoDto[]> {
+  ): Promise<RetornoSugestaoOrgaoDto> {
     let retorno: string[] = new Array<string>();
-    let resposta: RetornoSugestaoOrgaoDto[] = new Array<
-      RetornoSugestaoOrgaoDto
-    >();
+    let resposta: RetornoSugestaoOrgaoDto;
 
     let dic: {} = [];
     let mensagem: string;
@@ -48,9 +46,7 @@ export class RespostaSugestaoDados {
       'ESPM NEWS',
     );
 
-    resposta.push(arrayResposta);
-
-    return resposta;
+    return arrayResposta;
   }
 
   returnArrayCPF(candidatos: { numerocpf: string }[]) {
