@@ -5,6 +5,11 @@ import { AssociacaoModule } from './associacao/associacao.module';
 import { IdentidadeModule } from './identidade/identidade.module';
 
 @Module({
-  imports: [SugestaoOrgaoModule, AssociacaoModule, IdentidadeModule,HttpModule],
+  imports: [
+    SugestaoOrgaoModule,
+    AssociacaoModule,
+    IdentidadeModule,
+    HttpModule,
+  ],
 })
 export class SugestaoModule {}

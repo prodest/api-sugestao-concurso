@@ -12,6 +12,7 @@ import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RespostaSugestaoDados } from '../../identidade/resposta_sugestao/resposta_sugestao_dados';
 import { RetornoSugestaoOrgaoDto } from './../../identidade/resposta_sugestao/dto/retorno_sugestao_orgao.dto';
 import { sender } from './sender.service';
+import { PublishQueue } from '../../rabbitmq/publish';
 //import { writeFile } from 'fs';
 @ApiUseTags('sugestao')
 @Controller('sugestao')
@@ -20,6 +21,7 @@ export class SugestaoOrgaoController {
     private readonly sender: sender,
     private readonly sugestaoOrgaoService: SugestaoOrgaoService,
     private readonly respostaSugestaoDados: RespostaSugestaoDados,
+    private readonly publishQueue: PublishQueue,
   ) {}
 
   @Get()
@@ -75,27 +77,10 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
+        this.publishQueue.publish(resposta_consulta);
       } else {
         console.log('concurso não existe!');
       }
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      let fake = {
-        users: [123, 456],
-        title: 'string',
-        message: 'string',
-      };
-      // let resposta: any = await this.sender.envia_dados(
-      //   process.env.URL_PUSH || 'http://10.32.32.60:3000/push',
-      //   resposta_consulta,
-      // );
-      // console.log('Response push notification: ', resposta);
-      // writeFile('./log.json', JSON.stringify(resposta), error => {
-      //   if (error) console.error(error);
-      //   else console.log('file created successfully!');
-      // });
     } catch (e) {
       console.log(e);
     }
