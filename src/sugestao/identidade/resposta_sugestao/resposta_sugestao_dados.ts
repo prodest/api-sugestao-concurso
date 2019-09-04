@@ -46,6 +46,12 @@ export class RespostaSugestaoDados {
       'ESPM NEWS',
     );
 
+    let naoContido: any;
+
+    naoContido = await this.returnArrayCPF(
+      await this.respostaSugestaoService.findAllCandidatesNoContained(dic),
+    );
+
     return arrayResposta;
   }
 

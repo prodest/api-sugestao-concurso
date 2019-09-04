@@ -3,7 +3,7 @@
 var amqp = require('amqplib/callback_api');
 
 export class PublishQueue {
-  publish(msgS) {
+  publish(obj) {
     amqp.connect(
       'amqp://fpgktngg:6-Sq5YfaHEXjydofFJ86gp1mogR282Qz@barnacle.rmq.cloudamqp.com/fpgktngg',
       function(error0, connection) {
@@ -14,16 +14,33 @@ export class PublishQueue {
           if (error1) {
             throw error1;
           }
-          var queue = 'fila';
-          var msg = msgS;
-          for (let index = 0; index < msgS[0].cpf_candidatos.length; index++) {
-            const element = msgS[0].cpf_candidatos[index];
-            channel.assertQueue(queue, {
-              durable: false,
-            });
 
-            channel.sendToQueue(queue, Buffer.from(element));
-            console.log(' [x] Sent %s', element);
+          const base = 1000;
+          let inicio = 0;
+          let fim = base;
+          let tamanho = obj.cpf_candidatos.length;
+          let lista_cpf;
+
+          while (inicio != fim) {
+            lista_cpf = obj.cpf_candidatos.slice(inicio, fim);
+            let push_Mensage = {
+              users: lista_cpf,
+              title: obj.titulo,
+              message: obj.mensagem,
+            };
+            try {
+              channel.assertQueue('filapublish', {
+                durable: false,
+              });
+              let myJSON = JSON.stringify(push_Mensage);
+              channel.sendToQueue('filapublish', Buffer.from(myJSON));
+            } catch (e) {
+              console.log('erro ao enviar dados ' + e);
+              throw new Error('abortado!');
+            }
+
+            inicio = fim;
+            fim + base < tamanho ? (fim += base) : (fim = tamanho);
           }
         });
         setTimeout(function() {
@@ -33,6 +50,4 @@ export class PublishQueue {
       },
     );
   }
-
-  send(queue, mensagem, channel) {}
 }

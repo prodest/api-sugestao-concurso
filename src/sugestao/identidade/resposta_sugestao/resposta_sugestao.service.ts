@@ -31,4 +31,6 @@ export class RespostaSugestaoService {
         .getRawMany();
     }
   }
+
+  async findAllCandidatesNoContained(dic): Promise<any> {}
 }
