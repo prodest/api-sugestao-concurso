@@ -15,32 +15,37 @@ export class PublishQueue {
             throw error1;
           }
 
-          const base = 1000;
-          let inicio = 0;
-          let fim = base;
-          let tamanho = obj.cpf_candidatos.length;
-          let lista_cpf;
+          for (let index = 0; index < obj.length; index++) {
+            const base = 1000;
+            let inicio = 0;
+            let fim = base;
+            let tamanho = obj[index].cpf_candidatos.length;
+            console.log(tamanho);
+            let lista_cpf;
 
-          while (inicio != fim) {
-            lista_cpf = obj.cpf_candidatos.slice(inicio, fim);
-            let push_Mensage = {
-              users: lista_cpf,
-              title: obj.titulo,
-              message: obj.mensagem,
-            };
-            try {
-              channel.assertQueue('filapublish', {
-                durable: false,
-              });
-              let myJSON = JSON.stringify(push_Mensage);
-              channel.sendToQueue('filapublish', Buffer.from(myJSON));
-            } catch (e) {
-              console.log('erro ao enviar dados ' + e);
-              throw new Error('abortado!');
+            while (inicio != fim) {
+              lista_cpf = obj[index].cpf_candidatos.slice(inicio, fim);
+              let push_Mensage = {
+                users: lista_cpf,
+                title: obj[index].titulo,
+                message: obj[index].mensagem,
+              };
+              try {
+                channel.assertQueue('filapublish', {
+                  durable: false,
+                });
+
+                let myJSON = JSON.stringify(push_Mensage);
+
+                channel.sendToQueue('filapublish', Buffer.from(myJSON));
+              } catch (e) {
+                console.log('erro ao enviar dados ' + e);
+                throw new Error('abortado!');
+              }
+
+              inicio = fim;
+              fim + base < tamanho ? (fim += base) : (fim = tamanho);
             }
-
-            inicio = fim;
-            fim + base < tamanho ? (fim += base) : (fim = tamanho);
           }
         });
         setTimeout(function() {

@@ -10,14 +10,16 @@ export class RespostaSugestaoDados {
 
   async retornaArraySugestao(
     orgaos: Array<any>,
-  ): Promise<RetornoSugestaoOrgaoDto> {
+  ): Promise<RetornoSugestaoOrgaoDto[]> {
     let retorno: string[] = new Array<string>();
-    let resposta: RetornoSugestaoOrgaoDto;
+    let resposta: RetornoSugestaoOrgaoDto[] = [];
 
     let dic: {} = [];
-    let mensagem: string;
+    let mensagemContido: string;
+    let mensagemNaoContido: string;
     let orgao_destino: string = orgaos[0].orgao_destino;
     let array: string[] = new Array<string>();
+    let naoContido: any;
 
     for (let j = 0; j < orgaos.length; j++) {
       for (let i = 0; i < orgaos[j].orgao_origem.length; i++) {
@@ -25,15 +27,16 @@ export class RespostaSugestaoDados {
       }
     }
 
+    // Busca os orgãos com correlação
     for (const elem in dic) {
       retorno = await this.returnArrayCPF(
         await this.respostaSugestaoService.findAllCandidates(elem),
       );
       array = array.concat(retorno);
     }
-    let novaArr = array.filter((este, i) => array.indexOf(este) === i);
+    let novaArr = [...new Set(array)];
 
-    mensagem =
+    mensagemContido =
       'Oi, tenho ' +
       orgaos[orgaos.length - 1].porcentagem.toFixed(2) +
       '% de certeza que você vai se interessar pelo processo seletivo ' +
@@ -41,18 +44,34 @@ export class RespostaSugestaoDados {
       '.';
 
     const arrayResposta = new RetornoSugestaoOrgaoDto(
-      mensagem,
+      mensagemContido,
       novaArr,
       'ESPM NEWS',
     );
 
-    let naoContido: any;
+    // Busca orgãos sem correlação
 
     naoContido = await this.returnArrayCPF(
       await this.respostaSugestaoService.findAllCandidatesNoContained(dic),
     );
 
-    return arrayResposta;
+    let novaArrNaoContido = [...new Set(naoContido)];
+
+    mensagemNaoContido =
+      'Oi, há um novo processo seletivo ' +
+      orgao_destino.toUpperCase() +
+      ' aberto';
+
+    const arrayRespostaNaoContido = new RetornoSugestaoOrgaoDto(
+      mensagemNaoContido,
+      novaArrNaoContido,
+      'ESPM NEWS',
+    );
+
+    resposta.push(arrayResposta);
+    resposta.push(arrayRespostaNaoContido);
+
+    return resposta;
   }
 
   returnArrayCPF(candidatos: { numerocpf: string }[]) {

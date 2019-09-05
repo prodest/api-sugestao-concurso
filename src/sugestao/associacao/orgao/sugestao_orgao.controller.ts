@@ -43,7 +43,7 @@ export class SugestaoOrgaoController {
 
   @Get(':orgao')
   async find(@Res() res, @Param() params) {
-    let resposta_consulta: RetornoSugestaoOrgaoDto;
+    let resposta_consulta: RetornoSugestaoOrgaoDto[];
     try {
       let result = await this.sugestaoOrgaoService.find(params.orgao);
 
@@ -69,7 +69,7 @@ export class SugestaoOrgaoController {
   async trigger(@Body() body, @Res() res) {
     let message = { mensagem: 'Publicado' };
 
-    let resposta_consulta: RetornoSugestaoOrgaoDto;
+    let resposta_consulta: RetornoSugestaoOrgaoDto[];
     try {
       let result = await this.sugestaoOrgaoService.find(body.orgao);
 
@@ -80,8 +80,7 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
-
-        console.log(resposta_consulta.cpf_candidatos.length);
+        console.log(resposta_consulta);
         this.publishQueue.publish(resposta_consulta);
         res.status(HttpStatus.OK).send(message);
       } else {

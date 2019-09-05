@@ -32,5 +32,58 @@ export class RespostaSugestaoService {
     }
   }
 
-  async findAllCandidatesNoContained(dic): Promise<any> {}
+  async findAllCandidatesNoContained(dic): Promise<any> {
+    let tamanhoDic = Object.keys(dic).length;
+    let valores = Object.keys(dic);
+    console.log(tamanhoDic);
+    if (tamanhoDic == 1) {
+      return await Pessoa.createQueryBuilder('pessoa')
+        .select('pessoa.numerocpf, orgaoconcurso.nome')
+        .innerJoin('pessoa.inscricao', 'inscricao')
+        .innerJoin('inscricao.concurso', 'concurso')
+        .innerJoin('concurso.orgaoConcurso', 'orgaoconcurso')
+        .where('not (lower(orgaoconcurso.nome) LIKE :nome1)', {
+          nome: valores[0],
+        })
+        .getRawMany();
+    } else if (tamanhoDic == 2) {
+      return await Pessoa.createQueryBuilder('pessoa')
+        .select('pessoa.numerocpf, orgaoconcurso.nome')
+        .innerJoin('pessoa.inscricao', 'inscricao')
+        .innerJoin('inscricao.concurso', 'concurso')
+        .innerJoin('concurso.orgaoConcurso', 'orgaoconcurso')
+        .where(
+          'not (lower(orgaoconcurso.nome) LIKE :nome or lower(orgaoconcurso.nome) LIKE :nome1)',
+          { nome: valores[0], nome1: valores[1] },
+        )
+        .getRawMany();
+    } else if (tamanhoDic == 3) {
+      return await Pessoa.createQueryBuilder('pessoa')
+        .select('pessoa.numerocpf, orgaoconcurso.nome')
+        .innerJoin('pessoa.inscricao', 'inscricao')
+        .innerJoin('inscricao.concurso', 'concurso')
+        .innerJoin('concurso.orgaoConcurso', 'orgaoconcurso')
+        .where(
+          'not (lower(orgaoconcurso.nome) LIKE :nome or lower(orgaoconcurso.nome) LIKE :nome1 or lower(orgaoconcurso.nome) LIKE :nome2)',
+          { nome: valores[0], nome1: valores[1], nome2: valores[1] },
+        )
+        .getRawMany();
+    } else if (tamanhoDic == 4) {
+      return await Pessoa.createQueryBuilder('pessoa')
+        .select('pessoa.numerocpf, orgaoconcurso.nome')
+        .innerJoin('pessoa.inscricao', 'inscricao')
+        .innerJoin('inscricao.concurso', 'concurso')
+        .innerJoin('concurso.orgaoConcurso', 'orgaoconcurso')
+        .where(
+          'not (lower(orgaoconcurso.nome) LIKE :nome or lower(orgaoconcurso.nome) LIKE :nome1 or lower(orgaoconcurso.nome) LIKE :nome2 or lower(orgaoconcurso.nome) LIKE :nome3)',
+          {
+            nome: valores[0],
+            nome1: valores[1],
+            nome2: valores[2],
+            nome3: valores[3],
+          },
+        )
+        .getRawMany();
+    }
+  }
 }
