@@ -4,7 +4,6 @@ import { SugestaoOrgaoController } from "./sugestao_orgao.controller";
 import { MongoDatabaseModule } from "../database/mongo_database.module";
 import { SugestaoOrgaoService } from "./sugestao_orgao.service";
 import { RespostaSugestaoModule } from "../../identidade/resposta_sugestao/resposta_sugestao.module";
-import { sender } from "./sender.service";
 import { PublishQueue } from "../../rabbitmq/publish";
 
 @Module({
@@ -17,10 +16,9 @@ import { PublishQueue } from "../../rabbitmq/publish";
   controllers: [SugestaoOrgaoController],
   providers: [
     ...sugestaoOrgaoProviders,
-    SugestaoOrgaoService,
-    sender,
+    SugestaoOrgaoService,   
     PublishQueue
   ],
-  exports: [...sugestaoOrgaoProviders, SugestaoOrgaoService, sender]
+  exports: [...sugestaoOrgaoProviders, SugestaoOrgaoService]
 })
 export class SugestaoOrgaoModule {}

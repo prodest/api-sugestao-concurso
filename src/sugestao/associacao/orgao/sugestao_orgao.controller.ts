@@ -11,18 +11,21 @@ import { SugestaoOrgaoService } from './sugestao_orgao.service';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { RespostaSugestaoDados } from '../../identidade/resposta_sugestao/resposta_sugestao_dados';
 import { RetornoSugestaoOrgaoDto } from './../../identidade/resposta_sugestao/dto/retorno_sugestao_orgao.dto';
-import { sender } from './sender.service';
 import { PublishQueue } from '../../rabbitmq/publish';
-//import { writeFile } from 'fs';
+import { Channel } from 'amqplib';
+import { getPublishChannel } from '../../rabbitmq/getPublishChannel';
+
+
 @ApiUseTags('sugestao')
 @Controller('sugestao')
 export class SugestaoOrgaoController {
   constructor(
-    private readonly sender: sender,
+
     private readonly sugestaoOrgaoService: SugestaoOrgaoService,
     private readonly respostaSugestaoDados: RespostaSugestaoDados,
     private readonly publishQueue: PublishQueue,
   ) {}
+  publishChannel: Channel = null;
 
   @Get()
   @ApiResponse({ status: 200, description: 'Map was find.' })
@@ -31,7 +34,9 @@ export class SugestaoOrgaoController {
   async findAll(@Res() res) {
     try {
       let result = await this.sugestaoOrgaoService.findAll();
+    
       if (result != null) {
+        
         res.status(HttpStatus.OK).send(result);
       } else {
         res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
@@ -53,6 +58,7 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
+       
         res.status(HttpStatus.OK).send(resposta_consulta);
         return resposta_consulta;
       } else {
@@ -80,9 +86,11 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
-        console.log(resposta_consulta);
-        this.publishQueue.publish(resposta_consulta);
+        
+        if(this.publishChannel == null) this.publishChannel = await getPublishChannel(resposta_consulta);
+       
         res.status(HttpStatus.OK).send(message);
+
       } else {
         console.log('concurso não existe!');
       }

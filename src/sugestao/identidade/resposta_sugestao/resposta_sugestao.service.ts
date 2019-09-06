@@ -35,7 +35,7 @@ export class RespostaSugestaoService {
   async findAllCandidatesNoContained(dic): Promise<any> {
     let tamanhoDic = Object.keys(dic).length;
     let valores = Object.keys(dic);
-    console.log(tamanhoDic);
+
     if (tamanhoDic == 1) {
       return await Pessoa.createQueryBuilder('pessoa')
         .select('pessoa.numerocpf, orgaoconcurso.nome')

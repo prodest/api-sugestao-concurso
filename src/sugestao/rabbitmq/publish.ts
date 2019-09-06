@@ -5,7 +5,7 @@ var amqp = require('amqplib/callback_api');
 export class PublishQueue {
   publish(obj) {
     amqp.connect(
-      'amqp://fpgktngg:6-Sq5YfaHEXjydofFJ86gp1mogR282Qz@barnacle.rmq.cloudamqp.com/fpgktngg',
+      process.env.RABBIT_URI,
       function(error0, connection) {
         if (error0) {
           throw error0;
@@ -20,7 +20,6 @@ export class PublishQueue {
             let inicio = 0;
             let fim = base;
             let tamanho = obj[index].cpf_candidatos.length;
-            console.log(tamanho);
             let lista_cpf;
 
             while (inicio != fim) {
@@ -31,13 +30,13 @@ export class PublishQueue {
                 message: obj[index].mensagem,
               };
               try {
-                channel.assertQueue('filapublish', {
+                channel.assertQueue(process.env.QUEUE, {
                   durable: false,
                 });
 
                 let myJSON = JSON.stringify(push_Mensage);
 
-                channel.sendToQueue('filapublish', Buffer.from(myJSON));
+                channel.sendToQueue(process.env.QUEUE, Buffer.from(myJSON));
               } catch (e) {
                 console.log('erro ao enviar dados ' + e);
                 throw new Error('abortado!');

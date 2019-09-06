@@ -11,7 +11,7 @@ import {
 import { Auditoria } from './Auditoria.entity';
 import { Inscricao } from './inscricao.entity';
 import { OrgaoConcurso } from './orgaoConcurso.entity';
-import { Habilidade } from './habilidade.entity';
+
 
 @Entity()
 export class Concurso extends Auditoria {
@@ -52,11 +52,6 @@ export class Concurso extends Auditoria {
   @Index('idbancoorigem_index')
   idbancoorigem: number;
 
-  /*
-  @OneToMany(type => Area, areas => areas.id)
-  areas: Area[];
-*/
-
   @OneToMany(type => Inscricao, inscricao => inscricao.concurso)
   inscricao: Inscricao[];
 
@@ -65,11 +60,4 @@ export class Concurso extends Auditoria {
   @Index('orgaoconcursoid_index')
   orgaoConcurso: OrgaoConcurso;
 
-  @ManyToMany(type => Habilidade, habilidade => habilidade.id)
-  @JoinTable({
-    name: 'concurso_habilidade',
-    joinColumn: { name: 'concursoid', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'habilidadeid', referencedColumnName: 'id' },
-  })
-  habilidade: Habilidade[];
 }

@@ -1,14 +1,11 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
+  OneToMany
+
 } from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
 import { Concurso } from './concurso.entity';
-import { Contato } from './contato.entity';
 
 @Entity()
 export class OrgaoConcurso extends Auditoria {
@@ -18,11 +15,4 @@ export class OrgaoConcurso extends Auditoria {
   @OneToMany(type => Concurso, concurso => concurso.orgaoConcurso)
   concurso: Concurso[];
 
-  @ManyToMany(type => Contato)
-  @JoinTable({
-    name: 'orgaoconcurso_contato',
-    joinColumn: { name: 'orgaoconcursoid', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'contatoid', referencedColumnName: 'id' },
-  })
-  contato: Contato[];
 }

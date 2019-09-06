@@ -1,6 +1,8 @@
 import { Entity, Column, Index, OneToMany } from 'typeorm';
 import { Auditoria } from './Auditoria.entity';
 import { Inscricao } from './inscricao.entity';
+
+
 @Entity()
 export class Classificacao extends Auditoria {
   @Column({ type: 'int' })

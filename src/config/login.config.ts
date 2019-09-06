@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt';
 
 const LoginConfig = {
-  user: process.env.LOGIN_USER || 'user',
-  pass: process.env.LOGIN_PASS || 'pass',
+  user: process.env.LOGIN_USER || '',
+  pass: process.env.LOGIN_PASS,
 };
 
 export class Hash {
