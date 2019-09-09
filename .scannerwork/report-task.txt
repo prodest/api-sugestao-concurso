@@ -1,0 +1,6 @@
+projectKey=push-sugestao
+serverUrl=http://10.32.32.60:9000
+serverVersion=7.9.1.27448
+dashboardUrl=http://10.32.32.60:9000/dashboard?id=push-sugestao
+ceTaskId=AW0XYnfNtNwZwrLwPFwO
+ceTaskUrl=http://10.32.32.60:9000/api/ce/task?id=AW0XYnfNtNwZwrLwPFwO

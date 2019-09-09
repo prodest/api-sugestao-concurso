@@ -9,15 +9,15 @@ export async function getPublishChannel (obj): Promise<amqp.Channel> {
   
   while ( channel == undefined ) {
       try {
-          conn = await amqp.connect( conf.amqpOptions );
-          console.log('conectou');
+        conn = await amqp.connect( conf.amqp_url );
+        
       } catch ( err ) {
           console.log( `[ getPublishChannel ] Falha ao tentar se conectar ao rabbitMQ. ${err.message}` );
       }
       if ( conn ) {
           try {
               channel = await conn.createChannel();
-              console.log('canal');
+            
           } catch ( err ) {
               console.log( `[ getPublishChannel ] Falha ao declarar o canal de produção no rabbitMQ. ${err.message}` );
               channel = undefined;
@@ -37,7 +37,9 @@ export async function getPublishChannel (obj): Promise<amqp.Channel> {
           }
 
           try {
+
               await channel.bindQueue( conf.rabbitPublishQueueName, conf.rabbitTopicName, conf.rabbitPublishRoutingKey );
+
               for (let index = 0; index < obj.length; index++) {
                 const base = 1000;
                 let inicio = 0;
@@ -52,14 +54,11 @@ export async function getPublishChannel (obj): Promise<amqp.Channel> {
                     title: obj[index].titulo,
                     message: obj[index].mensagem,
                   };
-                  try {
-                    channel.assertQueue(process.env.QUEUE, {
-                      durable: false,
-                    });
+                  try {                  
     
                     let myJSON = JSON.stringify(push_Mensage);
     
-                    channel.sendToQueue(process.env.QUEUE, Buffer.from(myJSON));
+                    channel.publish(conf.rabbitPublishQueueName, conf.rabbitTopicName, Buffer.from(myJSON));
                   } catch (e) {
                     console.log('erro ao enviar dados ' + e);
                     throw new Error('abortado!');

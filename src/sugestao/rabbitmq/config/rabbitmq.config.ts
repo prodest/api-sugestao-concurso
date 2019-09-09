@@ -17,3 +17,5 @@ export const amqpOptions: Options.Connect = {
     username: rabbitUser,
     password: rabbitPassword
 };
+
+export const amqp_url :string = `amqp://${rabbitUser}:${rabbitPassword}@${rabbitHost}:${rabbitPort}`
