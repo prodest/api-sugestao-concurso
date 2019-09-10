@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
 const LoginConfig = {
-  user: process.env.LOGIN_USER || '',
+  user: process.env.LOGIN_USER,
   pass: process.env.LOGIN_PASS,
 };
 

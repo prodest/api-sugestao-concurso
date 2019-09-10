@@ -15,12 +15,10 @@ import { PublishQueue } from '../../rabbitmq/publish';
 import { Channel } from 'amqplib';
 import { getPublishChannel } from '../../rabbitmq/getPublishChannel';
 
-
 @ApiUseTags('sugestao')
 @Controller('sugestao')
 export class SugestaoOrgaoController {
   constructor(
-
     private readonly sugestaoOrgaoService: SugestaoOrgaoService,
     private readonly respostaSugestaoDados: RespostaSugestaoDados,
     private readonly publishQueue: PublishQueue,
@@ -34,9 +32,8 @@ export class SugestaoOrgaoController {
   async findAll(@Res() res) {
     try {
       let result = await this.sugestaoOrgaoService.findAll();
-    
+
       if (result != null) {
-        
         res.status(HttpStatus.OK).send(result);
       } else {
         res.status(HttpStatus.NOT_FOUND).json('{"message":"Erro ao buscar"}');
@@ -58,7 +55,7 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
-       
+
         res.status(HttpStatus.OK).send(resposta_consulta);
         return resposta_consulta;
       } else {
@@ -86,11 +83,11 @@ export class SugestaoOrgaoController {
         resposta_consulta = await this.respostaSugestaoDados.retornaArraySugestao(
           result,
         );
-        
-        if(this.publishChannel == null) this.publishChannel = await getPublishChannel(resposta_consulta);
-       
-        res.status(HttpStatus.OK).send(message);
 
+        this.publishQueue.publish(resposta_consulta);
+        // if(this.publishChannel == null) this.publishChannel = await getPublishChannel(resposta_consulta);
+
+        res.status(HttpStatus.OK).send(message);
       } else {
         console.log('concurso não existe!');
       }
