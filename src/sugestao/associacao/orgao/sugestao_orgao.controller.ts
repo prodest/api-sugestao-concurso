@@ -75,6 +75,7 @@ export class SugestaoOrgaoController {
     let resposta_consulta: RetornoSugestaoOrgaoDto[];
     try {
       let result = await this.sugestaoOrgaoService.find(body.orgao);
+      console.log(result);
 
       if (result.length == 0) {
         throw new Error('Nenhum orgão com este nome foi encontrado');

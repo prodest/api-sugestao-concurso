@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
-import { AppModule } from './../src/app.module';
-import { loadFeature, defineFeature } from '../node_modules/jest-cucumber';
+import { AppModule } from '../src/app.module';
+import { loadFeature, defineFeature } from 'jest-cucumber';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 

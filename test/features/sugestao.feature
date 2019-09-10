@@ -2,11 +2,11 @@
 
 Funcionalidade: Sugestao
 
-Cenário: O usuário deseja saber quais os cargos possuem correlação com o que está informando
+Cenário: O usuário deseja saber quais os órgãos possuem correlação com o que está informando
 
-Dado que foi informado um cargo
+Dado que foi informado um orgao
 Quando eu pesquisar no banco
-Então devo retornar o resultado contendo os cargos correlacionados
+Então devo retornar o resultado contendo os orgaos correlacionados
 
 # Cenário: O usuário envie uma lista vazia, ou seja, sem cargo algum
 
