@@ -85,8 +85,9 @@ export class SugestaoOrgaoController {
           result,
         );
 
-        this.publishQueue.publish(resposta_consulta);
-        // if(this.publishChannel == null) this.publishChannel = await getPublishChannel(resposta_consulta);
+        // this.publishQueue.publish(resposta_consulta);
+        if (this.publishChannel == null)
+          this.publishChannel = await getPublishChannel(resposta_consulta);
 
         res.status(HttpStatus.OK).send(message);
       } else {
